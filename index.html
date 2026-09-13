@@ -1,0 +1,784 @@
+<title>Uttar Pradesh Nipun Bharat School Locator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap">
+<style>
+  :root{
+    /* CSF palette */
+    --blue:#003DA5; --navy:#00316B; --gold:#FFC000; --sky:#CFE2F3; --amber:#B26B00;
+    --paper:#FFFFFF; --mist:#F4F7FB; --tint:#E4EEF8; --rule:#DDE3EC;
+    --ink:#1B2433; --slate:#4A5568; --flat:#8A94A6; --critical:#B3261E;
+    /* roles */
+    --ground:#F4F7FB; --title:#00316B; --link:#003DA5;
+    --action:#003DA5; --action-ink:#FFFFFF;
+    --dot-r:#003DA5; --dot-u:#B26B00;
+    --chip-on:#00316B; --chip-on-ink:#FFFFFF;
+    --seg-on:#FFFFFF; --seg-on-ink:#00316B;
+    --glass:rgba(255,255,255,.56); --glass-solid:rgba(255,255,255,.94); --sheet:rgba(250,252,255,.8);
+    --panel:rgba(255,255,255,.72); --glass-edge:rgba(255,255,255,.9); --sheen:rgba(255,255,255,.6);
+    --glass-shadow:0 12px 32px -10px rgba(0,49,107,.22),0 1px 3px rgba(0,49,107,.08);
+    --panel-shadow:0 1px 2px rgba(0,49,107,.06),0 8px 24px -14px rgba(0,49,107,.18);
+    --field:rgba(255,255,255,.82); --field-line:rgba(0,49,107,.14);
+    --press:rgba(0,61,165,.06); --mark:rgba(255,192,0,.4); --crit-soft:rgba(179,38,30,.08);
+    --wash-1:rgba(0,61,165,.18); --wash-2:rgba(207,226,243,1); --wash-3:rgba(255,192,0,.16);
+    --scrim:rgba(0,34,77,.26); --toast:#00316B; --toast-ink:#FFFFFF;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#00162F; --title:#E4EEF8; --link:#8FB3E0;
+      --ink:#E4EEF8; --slate:#A9B7CB; --flat:#8A94A6; --rule:rgba(207,226,243,.12); --tint:rgba(207,226,243,.08); --critical:#D9573B;
+      --action:#2E63B8; --action-ink:#FFFFFF;
+      --dot-r:#8FB3E0; --dot-u:#FFD666;
+      --chip-on:#CFE2F3; --chip-on-ink:#00224D;
+      --seg-on:rgba(207,226,243,.18); --seg-on-ink:#FFFFFF;
+      --glass:rgba(0,34,77,.48); --glass-solid:rgba(0,34,77,.95); --sheet:rgba(0,30,66,.82);
+      --panel:rgba(0,40,90,.38); --glass-edge:rgba(207,226,243,.14); --sheen:rgba(255,255,255,.07);
+      --glass-shadow:0 14px 36px -10px rgba(0,0,0,.6);
+      --panel-shadow:0 10px 28px -16px rgba(0,0,0,.6);
+      --field:rgba(0,22,47,.55); --field-line:rgba(207,226,243,.16);
+      --press:rgba(207,226,243,.07); --mark:rgba(255,192,0,.3); --crit-soft:rgba(217,87,59,.14);
+      --wash-1:rgba(46,99,184,.42); --wash-2:rgba(0,61,165,.3); --wash-3:rgba(255,192,0,.09);
+      --scrim:rgba(0,8,20,.55); --toast:#CFE2F3; --toast-ink:#00224D;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#00162F; --title:#E4EEF8; --link:#8FB3E0;
+    --ink:#E4EEF8; --slate:#A9B7CB; --flat:#8A94A6; --rule:rgba(207,226,243,.12); --tint:rgba(207,226,243,.08); --critical:#D9573B;
+    --action:#2E63B8; --action-ink:#FFFFFF;
+    --dot-r:#8FB3E0; --dot-u:#FFD666;
+    --chip-on:#CFE2F3; --chip-on-ink:#00224D;
+    --seg-on:rgba(207,226,243,.18); --seg-on-ink:#FFFFFF;
+    --glass:rgba(0,34,77,.48); --glass-solid:rgba(0,34,77,.95); --sheet:rgba(0,30,66,.82);
+    --panel:rgba(0,40,90,.38); --glass-edge:rgba(207,226,243,.14); --sheen:rgba(255,255,255,.07);
+    --glass-shadow:0 14px 36px -10px rgba(0,0,0,.6);
+    --panel-shadow:0 10px 28px -16px rgba(0,0,0,.6);
+    --field:rgba(0,22,47,.55); --field-line:rgba(207,226,243,.16);
+    --press:rgba(207,226,243,.07); --mark:rgba(255,192,0,.3); --crit-soft:rgba(217,87,59,.14);
+    --wash-1:rgba(46,99,184,.42); --wash-2:rgba(0,61,165,.3); --wash-3:rgba(255,192,0,.09);
+    --scrim:rgba(0,8,20,.55); --toast:#CFE2F3; --toast-ink:#00224D;
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0; min-height:100vh; background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.45;
+    -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent}
+  body::before{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(70% 42% at 0% 0%,var(--wash-1),transparent 72%),
+      radial-gradient(65% 40% at 100% 18%,var(--wash-2),transparent 70%),
+      radial-gradient(60% 34% at 80% 100%,var(--wash-3),transparent 72%)}
+  button,select,input{font:inherit; color:inherit}
+  button{background:none; border:0; padding:0; cursor:pointer; text-align:inherit}
+  .num{font-variant-numeric:tabular-nums}
+  .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+  :focus-visible{outline:2.5px solid var(--gold); outline-offset:2px}
+  .inner{max-width:720px; margin-inline:auto; padding-inline:16px}
+
+  /* Liquid glass surface */
+  .glass{background-color:var(--glass); background-image:linear-gradient(180deg,var(--sheen),transparent 42%);
+    -webkit-backdrop-filter:blur(24px) saturate(175%); backdrop-filter:blur(24px) saturate(175%);
+    border:1px solid var(--glass-edge); box-shadow:var(--glass-shadow),inset 0 1px 0 var(--sheen)}
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .glass{background-color:var(--glass-solid)}
+  }
+
+  /* ── Brand ── */
+  .top{padding-top:env(safe-area-inset-top)}
+  .brandrow{display:flex; align-items:center; justify-content:space-between; gap:12px; padding-block:16px 8px}
+  .brand{display:flex; align-items:center; gap:11px; min-width:0}
+  .logo{flex:0 0 auto; width:34px; height:34px; border-radius:9px; background:var(--navy); color:var(--gold); display:grid; place-items:center;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+  .wm{font-family:var(--serif); font-weight:600; font-size:21px; line-height:1.05; color:var(--title); letter-spacing:-.005em}
+  .tag{font-size:12.5px; color:var(--slate); line-height:1.2; margin-top:3px; letter-spacing:.02em}
+  .iconbtn{width:40px; height:40px; border-radius:10px; display:grid; place-items:center; color:var(--title)}
+
+  /* ── Sticky glass dock ── */
+  .dock{position:sticky; top:0; z-index:30; padding-block:6px 8px}
+  .dockbar{border-radius:14px; padding:10px; display:flex; flex-direction:column; gap:9px}
+  .field{position:relative}
+  .field > svg{position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--flat); pointer-events:none}
+  #q{width:100%; height:48px; border-radius:10px; border:1px solid var(--field-line); background:var(--field); color:var(--ink);
+    font-size:16.5px; padding:0 46px 0 42px; -webkit-appearance:none; appearance:none}
+  #q::placeholder{color:var(--flat)}
+  #q::-webkit-search-cancel-button{display:none}
+  #q:focus-visible{outline:2.5px solid var(--gold); outline-offset:0; border-color:transparent}
+  .clear{position:absolute; right:4px; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:8px; display:grid; place-items:center; color:var(--flat)}
+  .chips{display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; margin-inline:-10px; padding-inline:10px}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto; display:inline-flex; align-items:center; gap:6px; height:34px; padding:0 11px; border-radius:8px;
+    background:var(--field); border:1px solid var(--field-line); font-size:14px; font-weight:500; white-space:nowrap; color:var(--ink)}
+  .chip svg{flex:0 0 auto}
+  .chip.on{background:var(--chip-on); border-color:var(--chip-on); color:var(--chip-on-ink)}
+  .chip.busy{opacity:.65}
+  .chip .badge{min-width:18px; height:18px; padding:0 5px; border-radius:5px; background:var(--gold); color:#00224D; font-size:11.5px; font-weight:600; display:inline-grid; place-items:center}
+  .chip.tok{padding-right:6px; background:var(--tint); border-color:transparent; color:var(--title)}
+  .chip.tok span.xx{width:22px; height:22px; border-radius:5px; display:grid; place-items:center; color:var(--slate)}
+  .divider{flex:0 0 1px; align-self:center; height:20px; background:var(--field-line)}
+
+  /* ── Views ── */
+  main{padding-block:10px 28px}
+  .lede{margin:6px 2px 18px; color:var(--slate); font-size:15px; max-width:52ch}
+  .lede b{color:var(--ink); font-weight:600}
+  .sh{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0 2px 7px}
+  .sh h2{margin:0; font-size:11.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--slate)}
+  .sh .aside{font-size:12.5px; color:var(--flat)}
+  .sh button.aside{color:var(--link); font-weight:500; padding:6px 0}
+  .group{margin-bottom:22px}
+
+  .list{list-style:none; margin:0; padding:0; background:var(--panel); border:1px solid var(--glass-edge); border-radius:12px; overflow:hidden; box-shadow:var(--panel-shadow)}
+  .list > li + li{border-top:1px solid var(--rule)}
+
+  .row{display:flex; align-items:center; gap:4px; padding-right:10px}
+  .rowmain{flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; padding:11px 6px 11px 14px; min-height:64px; justify-content:center}
+  .rowmain:active{background:var(--press)}
+  .nm{font-family:var(--serif); font-weight:600; font-size:15.5px; line-height:1.22; letter-spacing:.01em; color:var(--ink); overflow-wrap:anywhere}
+  .sub{font-size:13px; color:var(--slate); line-height:1.3; display:flex; flex-wrap:wrap; column-gap:9px; row-gap:1px; align-items:center}
+  .sub .code{color:var(--flat); font-variant-numeric:tabular-nums; letter-spacing:.02em}
+  .km{font-weight:600; color:var(--title); font-variant-numeric:tabular-nums}
+  .ar{display:inline-flex; align-items:center; gap:5px}
+  .ar::before{content:""; width:7px; height:7px; border-radius:2px; background:var(--dot-r)}
+  .ar.U::before{background:var(--dot-u)}
+  .miss{color:var(--critical); font-weight:500}
+  mark{background:var(--mark); color:inherit; border-radius:2px; padding:0 1px}
+  .go{flex:0 0 auto; width:44px; height:44px; border-radius:10px; display:grid; place-items:center; background:var(--action); color:var(--action-ink);
+    text-decoration:none; box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 4px 10px -4px rgba(0,61,165,.5)}
+  .go:active{transform:scale(.95)}
+  .go.off{background:var(--tint); color:var(--slate); box-shadow:none}
+
+  .nav button{width:100%; display:grid; grid-template-columns:1fr auto 16px; align-items:center; gap:10px; padding:0 12px 0 14px; min-height:50px}
+  .nav button:active{background:var(--press)}
+  .nav .t{font-size:15.5px; font-weight:500; line-height:1.25; padding-block:8px; display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+  .nav .t .ar{font-size:12.5px; font-weight:400; color:var(--slate)}
+  .nav .c{font-size:13.5px; color:var(--slate); font-variant-numeric:tabular-nums}
+  .nav .chev{color:var(--flat)}
+  .nav .strong .t{color:var(--link); font-weight:600}
+  .nav .cur .t{font-weight:600}
+
+  .crumb{margin:0 0 2px -8px}
+  .back{display:inline-flex; align-items:center; gap:3px; font-size:14.5px; color:var(--link); font-weight:500; padding:8px; border-radius:8px}
+  .place{font-family:var(--serif); font-weight:600; font-size:28px; line-height:1.1; color:var(--title); margin:0 0 4px; text-wrap:balance}
+  .placesub{margin:0 0 18px; color:var(--slate); font-size:14.5px; display:flex; flex-wrap:wrap; gap:4px 12px; align-items:center}
+
+  .count{margin:6px 2px 10px; font-size:14.5px; color:var(--slate); display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline; justify-content:space-between}
+  .count b{color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums}
+  .linkbtn{color:var(--link); font-weight:500; padding:4px 0}
+
+  .empty{background:var(--panel); border:1px solid var(--glass-edge); border-radius:12px; padding:28px 20px; text-align:center; color:var(--slate)}
+  .empty h2{font-family:var(--serif); font-size:19px; font-weight:600; color:var(--title); margin:0 0 6px; text-wrap:balance}
+  .empty p{margin:0 auto 14px; max-width:40ch}
+  .solid{display:inline-flex; align-items:center; height:44px; padding:0 18px; border-radius:10px; background:var(--action); color:var(--action-ink); font-weight:600}
+  .loading{padding:40px 4px; color:var(--slate); display:flex; align-items:center; gap:12px}
+  .spin{width:18px; height:18px; border-radius:50%; border:2px solid var(--rule); border-top-color:var(--blue); animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .sentinel{height:1px}
+  .morebtn{display:block; margin:12px auto 0; height:44px; padding:0 20px; border-radius:10px; background:var(--tint); color:var(--link); font-weight:600}
+
+  .foot{padding-block:4px 36px; color:var(--flat); font-size:12.5px}
+  .foot{display:flex; flex-direction:column; gap:8px}
+  .foot p{margin:0; max-width:62ch}
+  .foot .credit{font-size:13.5px; color:var(--slate)}
+  .foot .credit a{color:var(--link); font-weight:600; text-decoration:none; border-bottom:1.5px solid var(--gold)}
+
+  /* ── Sheet ── */
+  .scrim{position:fixed; inset:0; z-index:50; background:var(--scrim); opacity:0; visibility:hidden; transition:opacity .22s, visibility 0s .22s}
+  .scrim.open{opacity:1; visibility:visible; transition:opacity .22s}
+  .sheet{position:fixed; left:0; right:0; bottom:0; z-index:60; margin-inline:auto; max-width:560px; max-height:90vh; max-height:90dvh;
+    display:flex; flex-direction:column; color:var(--ink); border-radius:16px 16px 0 0; border-bottom:0; background-color:var(--sheet);
+    transform:translateY(105%); visibility:hidden; transition:transform .3s cubic-bezier(.2,.8,.2,1), visibility 0s .3s}
+  .sheet.open{transform:none; visibility:visible; transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+  .grab{width:36px; height:4px; border-radius:2px; background:var(--field-line); margin:8px auto 0; flex:0 0 auto}
+  .shbody{overflow-y:auto; padding:4px 16px calc(18px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:14px}
+  .shtop{display:flex; align-items:center; justify-content:space-between; gap:10px; min-height:40px}
+  .shtools{display:flex; align-items:center; gap:4px}
+  .eyebrow{font-size:13px; color:var(--slate); min-width:0}
+  .x{flex:0 0 auto; width:36px; height:36px; border-radius:9px; display:grid; place-items:center; color:var(--slate); background:var(--tint)}
+  .textbtn{height:36px; padding:0 10px; color:var(--link); font-weight:500; border-radius:8px}
+  .sname{font-family:var(--serif); font-weight:600; font-size:23px; line-height:1.15; color:var(--title); margin:-4px 0 0; text-wrap:balance; overflow-wrap:anywhere}
+  .shh2{font-family:var(--serif); font-weight:600; font-size:21px; color:var(--title); margin:0}
+  .facts{display:grid; grid-template-columns:auto 1fr; gap:8px 16px; margin:0; font-size:14.5px; background:var(--field); border:1px solid var(--field-line); border-radius:10px; padding:12px 14px}
+  .facts dt{color:var(--flat); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:600; padding-top:2px}
+  .facts dd{margin:0; min-width:0; overflow-wrap:anywhere; font-variant-numeric:tabular-nums}
+  .facts .coordrow{display:flex; align-items:center; justify-content:space-between; gap:10px}
+  .copy{flex:0 0 auto; height:32px; padding:0 10px; border-radius:7px; background:var(--tint); color:var(--link); font-size:13.5px; font-weight:600; display:inline-flex; align-items:center; gap:5px}
+  .primary{display:flex; align-items:center; justify-content:center; gap:9px; width:100%; height:52px; border-radius:11px; background:var(--action); color:var(--action-ink);
+    font-size:16.5px; font-weight:600; text-decoration:none; box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 18px -8px rgba(0,61,165,.55)}
+  .primary:active{filter:brightness(.94)}
+  .primary[disabled]{opacity:.5; cursor:not-allowed; box-shadow:none}
+  .twin{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .secondary{display:flex; align-items:center; justify-content:center; gap:7px; height:46px; border-radius:10px; border:1px solid var(--field-line);
+    background:var(--field); color:var(--link); font-size:15px; font-weight:600; text-decoration:none}
+  .fine{margin:0; font-size:12.5px; color:var(--flat)}
+  .warn{background:var(--crit-soft); color:var(--critical); border-radius:10px; padding:11px 13px; font-size:14.5px; font-weight:500}
+
+  /* Filter form */
+  .fgroup{display:flex; flex-direction:column; gap:6px}
+  .flabel{font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--slate)}
+  .selwrap{position:relative}
+  .selwrap select{width:100%; height:48px; border-radius:10px; border:1px solid var(--field-line); background:var(--field); color:var(--ink);
+    font-size:16px; padding:0 40px 0 13px; -webkit-appearance:none; appearance:none}
+  .selwrap select:disabled{color:var(--flat)}
+  .selwrap select option{color:#1B2433; background:#FFFFFF}
+  .selwrap svg{position:absolute; right:13px; top:50%; transform:translateY(-50%); pointer-events:none; color:var(--slate)}
+  .seg{display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:2px; padding:3px; border-radius:10px; background:var(--tint); border:1px solid var(--field-line)}
+  .seg button{height:40px; border-radius:7px; font-size:14.5px; font-weight:500; color:var(--slate); text-align:center; padding:0 6px; line-height:1.15}
+  .seg button[aria-pressed="true"]{background:var(--seg-on); color:var(--seg-on-ink); font-weight:600; box-shadow:0 1px 3px rgba(0,49,107,.16),inset 0 1px 0 var(--sheen)}
+
+  #toast{position:fixed; left:50%; bottom:calc(22px + env(safe-area-inset-bottom)); z-index:80; transform:translate(-50%,14px); opacity:0; pointer-events:none;
+    background:var(--toast); color:var(--toast-ink); padding:10px 16px; border-radius:10px; font-size:14.5px; font-weight:500; max-width:calc(100vw - 32px); text-align:center;
+    transition:opacity .2s, transform .2s; box-shadow:0 10px 30px -8px rgba(0,34,77,.45)}
+  #toast.show{opacity:1; transform:translate(-50%,0)}
+
+  @media (min-width:720px){
+    .brandrow{padding-block:24px 10px}
+    .wm{font-size:24px}
+    .dock{padding-block:8px 10px}
+    .sheet{top:50%; bottom:auto; left:50%; right:auto; width:500px; max-height:86vh; border-radius:14px; border-bottom:1px solid var(--glass-edge);
+      transform:translate(-50%,-47%); opacity:0; transition:transform .24s cubic-bezier(.2,.8,.2,1), opacity .2s, visibility 0s .24s}
+    .sheet.open{transform:translate(-50%,-50%); opacity:1; transition:transform .24s cubic-bezier(.2,.8,.2,1), opacity .2s}
+    .grab{display:none}
+    .shbody{padding-top:14px}
+  }
+  @media (hover:hover){
+    .rowmain:hover,.nav button:hover{background:var(--press)}
+    .go:hover,.primary:hover{filter:brightness(1.08)}
+    .secondary:hover{border-color:var(--link)}
+  }
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important; animation:none!important}}
+</style>
+
+<header class="top">
+  <div class="inner brandrow">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z"/><circle cx="12" cy="10.5" r="2.3"/></svg>
+      </span>
+      <div style="min-width:0">
+        <div class="wm">School Locator</div>
+        <div class="tag">Uttar Pradesh · Nipun Bharat</div>
+      </div>
+    </div>
+    <button class="iconbtn" id="themeBtn" aria-label="Switch colour theme"></button>
+  </div>
+</header>
+
+<div class="dock">
+  <div class="inner">
+    <div class="dockbar glass">
+      <label class="sr" for="q">Search schools by name, UDISE code or block</label>
+      <div class="field">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.2-4.2"/></svg>
+        <input id="q" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="School name, UDISE code or block">
+        <button class="clear" id="clear" aria-label="Clear search" hidden>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="chips" id="chips">
+        <button class="chip" id="filterBtn" aria-haspopup="dialog">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+          Filters<span class="badge num" id="fBadge" hidden>0</span>
+        </button>
+        <button class="chip" id="nearBtn" aria-pressed="false">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          <span id="nearLbl">Nearby</span>
+        </button>
+        <span id="tokens" style="display:contents"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="inner" id="main">
+  <div id="view"><div class="loading"><span class="spin"></span>Loading 1.3 lakh schools…</div></div>
+</main>
+
+<footer class="inner foot">
+  <p class="credit">Vibe-coded by <a href="https://github.com/AdiChandrashekar" target="_blank" rel="noopener">Aditya Chandrashekar</a></p>
+  <p>Data from the Nipun Plus app’s public school directory (nipunapi.prernaup.in). Coordinates are as the school recorded them — confirm on arrival.</p>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<section class="sheet glass" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="grab" aria-hidden="true"></div>
+  <div class="shbody" id="shbody"></div>
+</section>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="schools_data.js"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var view=$('view');
+  var D=window.NIPUN_DATA;
+  if(!D){view.innerHTML='<div class="empty"><h2>School data didn’t load</h2><p>Keep schools_data.js in the same folder as this page, then reload.</p></div>';return;}
+
+  var districts=D.districts, blocks=D.blocks, dblocks=D.districtBlocks, S=D.schools, N=S.length;
+  var PAGE=40, RECENT_MAX=8;
+
+  var ICON={
+    nav:'<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M21.3 2.7a.9.9 0 0 0-1-.2L3.1 9.6a.9.9 0 0 0 .1 1.7l7 2 2 7a.9.9 0 0 0 1.7.1l7.1-17.2a.9.9 0 0 0-.2-1z"/></svg>',
+    search:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.2-4.2"/></svg>',
+    chev:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>',
+    down:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
+    back:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg>',
+    x:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+    xs:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+    copy:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
+    pin:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.6-7-11a7 7 0 0 1 14 0c0 4.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>',
+    share:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>',
+    sun:'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>',
+    moon:'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2z"/></svg>'
+  };
+
+  // ── helpers
+  var fmt=function(n){return n.toLocaleString('en-IN');};
+  function tc(s){return s.toLowerCase().replace(/(^|[\s\-(])([a-z])/g,function(m,a,b){return a+b.toUpperCase();});}
+  function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function sget(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function sset(k,v){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}}
+
+  // ── index
+  var dName=districts.map(tc), dN=districts.map(norm), bN=blocks.map(norm);
+  var bArea=blocks.map(function(r){return /\(U\)\s*$/.test(r)?'U':(/\(R\)\s*$/.test(r)?'R':'');});
+  var bLabel=blocks.map(function(r){return r.replace(/\s*\((R|U)\)\s*$/,'');});
+  var AREA={R:'Rural',U:'Urban'};
+  var nameN=new Array(N), hay=new Array(N);
+  for(var i=0;i<N;i++){
+    var s=S[i], n=norm(s[0]);
+    nameN[i]=n; hay[i]=n+' | '+bN[s[3]]+' | '+dN[s[2]]+' | '+s[1];
+  }
+  var dOrder=districts.map(function(_,i){return i;}).sort(function(a,b){return dName[a].localeCompare(dName[b]);});
+  var uMap=null;
+  function byUdise(u){if(!uMap){uMap={};for(var i=0;i<N;i++)uMap[S[i][1]]=i;}return uMap[u];}
+  function hasC(s){return !!(s[4]&&s[5]);}
+  function dirUrl(s){return 'https://www.google.com/maps/dir/?api=1&destination='+s[4]+'%2C'+s[5];}
+  function mapUrl(s){return 'https://www.google.com/maps/search/?api=1&query='+s[4]+'%2C'+s[5];}
+  function nameSearchUrl(s){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent((s[0]||'')+' school '+bLabel[s[3]]+' '+dName[s[2]]+' Uttar Pradesh');}
+
+  // ── state
+  var st={q:'',d:-1,b:-1,area:'',coord:'',near:null,list:false};
+  (function loadFilters(){
+    var f; try{f=JSON.parse(sget('nipun-filters')||'null');}catch(e){f=null;}
+    if(!f||typeof f!=='object')return;
+    if(f.d>=0&&f.d<districts.length){st.d=f.d; if(f.b>=0&&(dblocks[f.d]||[]).indexOf(f.b)!==-1)st.b=f.b;}
+    if(f.area==='R'||f.area==='U')st.area=f.area;
+    if(f.coord==='has'||f.coord==='none')st.coord=f.coord;
+  })();
+  function saveFilters(){sset('nipun-filters',JSON.stringify({d:st.d,b:st.b,area:st.area,coord:st.coord}));}
+  function nFilters(f){return (f.d>=0?1:0)+(f.b>=0?1:0)+(f.area?1:0)+(f.coord?1:0);}
+  var lastResults=[];
+
+  function match(s,f){
+    if(f.d>=0&&s[2]!==f.d)return false;
+    if(f.b>=0&&s[3]!==f.b)return false;
+    if(f.area&&bArea[s[3]]!==f.area)return false;
+    if(f.coord==='has'&&!hasC(s))return false;
+    if(f.coord==='none'&&hasC(s))return false;
+    return true;
+  }
+
+  function km(i){
+    var s=S[i]; if(!st.near||!hasC(s))return Infinity;
+    var R=6371, toR=Math.PI/180, dLa=(s[4]-st.near.lat)*toR, dLo=(s[5]-st.near.lng)*toR;
+    var a=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(st.near.lat*toR)*Math.cos(s[4]*toR)*Math.sin(dLo/2)*Math.sin(dLo/2);
+    return 2*R*Math.asin(Math.sqrt(a));
+  }
+  function fmtKm(d){return d<1?Math.round(d*1000)+' m':(d<10?d.toFixed(1):Math.round(d))+' km';}
+  function byDist(idx){return idx.map(function(i){return [km(i),i];}).sort(function(a,b){return a[0]-b[0];}).map(function(p){return p[1];});}
+
+  function search(f,q){
+    q=norm(q);
+    var toks=q.split(' ').filter(Boolean), b0=[], b1=[], b2=[], digits=/^\d{3,}$/.test(q);
+    for(var i=0;i<N;i++){
+      var s=S[i];
+      if(!match(s,f))continue;
+      if(!q){b0.push(i);continue;}
+      if(digits){
+        var u=s[1];
+        if(u.indexOf(q)===0)b0.push(i); else if(u.indexOf(q)!==-1)b2.push(i); else if(nameN[i].indexOf(q)!==-1)b1.push(i);
+        continue;
+      }
+      var h=hay[i], ok=true, t;
+      for(t=0;t<toks.length;t++){if(h.indexOf(toks[t])===-1){ok=false;break;}}
+      if(!ok)continue;
+      var n=nameN[i];
+      if(n.indexOf(q)===0){b0.push(i);continue;}
+      var sp=' '+n, inName=true;
+      for(t=0;t<toks.length;t++){if(sp.indexOf(' '+toks[t])===-1){inName=false;break;}}
+      (inName?b1:b2).push(i);
+    }
+    return b0.concat(b1,b2);
+  }
+  function countFor(f,q){
+    if(norm(q))return search(f,q).length;
+    var c=0; for(var i=0;i<N;i++)if(match(S[i],f))c++; return c;
+  }
+  function nearest(lim){
+    var la=st.near.lat, lo=st.near.lng, boxes=[.12,.5,2,99], c=[];
+    for(var w=0;w<boxes.length;w++){
+      c=[]; var bw=boxes[w];
+      for(var i=0;i<N;i++){var s=S[i]; if(!hasC(s)||!match(s,st))continue; if(Math.abs(s[4]-la)>bw||Math.abs(s[5]-lo)>bw)continue; c.push(i);}
+      if(c.length>=lim)break;
+    }
+    return byDist(c).slice(0,lim);
+  }
+
+  function hl(text,toks){
+    var e=esc(text);
+    if(!toks||!toks.length)return e;
+    var pat=toks.map(function(t){return t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).sort(function(a,b){return b.length-a.length;}).join('|');
+    return pat?e.replace(new RegExp('('+pat+')','gi'),'<mark>$1</mark>'):e;
+  }
+
+  // ── rows
+  function rowHTML(i,toks){
+    var s=S[i], c=hasC(s), a=bArea[s[3]], nm=s[0]||'Unnamed school';
+    var dist=(st.near&&c)?'<span class="km">'+fmtKm(km(i))+'</span>':'';
+    return '<li class="row"><button class="rowmain" data-i="'+i+'">'+
+      '<span class="nm">'+hl(nm,toks)+'</span>'+
+      '<span class="sub">'+dist+'<span class="ar'+(a==='U'?' U':'')+'">'+esc(bLabel[s[3]])+' · '+esc(dName[s[2]])+'</span>'+
+        '<span class="code">'+hl(s[1],toks)+'</span>'+(c?'':'<span class="miss">No location</span>')+'</span>'+
+      '</button>'+
+      (c?'<a class="go" href="'+dirUrl(s)+'" target="_blank" rel="noopener" aria-label="Directions to '+esc(nm)+'">'+ICON.nav+'</a>'
+        :'<a class="go off" href="'+nameSearchUrl(s)+'" target="_blank" rel="noopener" aria-label="No coordinates on record — search '+esc(nm)+' on Google Maps">'+ICON.search+'</a>')+
+      '</li>';
+  }
+  var io=null;
+  function mountList(container,idx,toks){
+    var ul=document.createElement('ul'), pos=0, sent=document.createElement('div');
+    ul.className='list'; container.appendChild(ul); sent.className='sentinel';
+    function more(){
+      var end=Math.min(idx.length,pos+PAGE), h='';
+      for(;pos<end;pos++)h+=rowHTML(idx[pos],toks);
+      ul.insertAdjacentHTML('beforeend',h);
+      if(pos>=idx.length){if(io){io.disconnect();io=null;} sent.remove();}
+    }
+    more();
+    if(pos<idx.length){
+      container.appendChild(sent);
+      if('IntersectionObserver' in window){
+        io=new IntersectionObserver(function(en){if(en[0].isIntersecting)more();},{rootMargin:'800px 0px'});
+        io.observe(sent);
+      }else{
+        sent.className=''; sent.innerHTML='<button class="morebtn">Show more</button>';
+        sent.firstChild.addEventListener('click',more);
+      }
+    }
+  }
+
+  // ── views
+  function summary(){
+    var p=[];
+    p.push(st.d<0?'Uttar Pradesh':dName[st.d]);
+    if(st.b>=0)p.push(bLabel[st.b]);
+    if(st.area)p.push(AREA[st.area]);
+    if(st.coord)p.push(st.coord==='has'?'Has location':'Missing location');
+    return p.join(' · ');
+  }
+  function clearFiltersBtn(){return nFilters(st)?'<button class="linkbtn" data-act="clear-filters">Clear filters</button>':'';}
+
+  function render(){
+    if(io){io.disconnect();io=null;}
+    view.innerHTML=''; lastResults=[];
+    if(st.q.trim())viewResults(true);
+    else if(st.near)viewNearby();
+    else if(st.d>=0&&(st.b>=0||st.list))viewSchoolList();
+    else if(st.d>=0)viewDistrict();
+    else if(st.area||st.coord)viewResults(false);
+    else viewHome();
+    syncChrome();
+  }
+
+  function viewHome(){
+    view.insertAdjacentHTML('beforeend','<p class="lede"><b class="num">'+fmt(N)+'</b> government schools across <b>75</b> districts. Search above, use Filters, or open a district.</p>');
+    var rec=recent();
+    if(rec.length){
+      var g=document.createElement('div'); g.className='group';
+      g.innerHTML='<div class="sh"><h2>Recently opened</h2><button class="aside" data-act="clear-recent">Clear</button></div>';
+      view.appendChild(g); mountList(g,rec,null);
+    }
+    var counts=new Array(districts.length).fill(0);
+    for(var i=0;i<N;i++)counts[S[i][2]]++;
+    var list='';
+    dOrder.forEach(function(d){
+      list+='<li><button data-d="'+d+'"><span class="t">'+esc(dName[d])+'</span><span class="c">'+fmt(counts[d])+'</span><span class="chev">'+ICON.chev+'</span></button></li>';
+    });
+    view.insertAdjacentHTML('beforeend','<div class="group"><div class="sh"><h2>Districts</h2><span class="aside">schools</span></div><ul class="list nav">'+list+'</ul></div>');
+  }
+
+  function viewDistrict(){
+    var d=st.d, total=0, bc={};
+    for(var i=0;i<N;i++){var s=S[i]; if(match(s,st)){total++; bc[s[3]]=(bc[s[3]]||0)+1;}}
+    var bl=(dblocks[d]||[]).filter(function(b){return bc[b];}).sort(function(a,b){return bLabel[a].localeCompare(bLabel[b]);});
+    view.insertAdjacentHTML('beforeend',
+      '<div class="crumb"><button class="back" data-nav="home">'+ICON.back+'All districts</button></div>'+
+      '<h1 class="place">'+esc(dName[d])+'</h1>'+
+      '<p class="placesub"><span class="num">'+fmt(total)+' schools · '+bl.length+' blocks & towns'+(st.area||st.coord?' · filtered':'')+'</span>'+clearFiltersBtn()+'</p>');
+    if(!total){view.insertAdjacentHTML('beforeend','<div class="empty"><h2>No schools with these filters</h2><p>'+esc(summary())+'</p><button class="solid" data-act="clear-filters">Clear filters</button></div>');return;}
+    var list='<li class="strong"><button data-act="list"><span class="t">All schools in '+esc(dName[d])+'</span><span class="c">'+fmt(total)+'</span><span class="chev">'+ICON.chev+'</span></button></li>';
+    bl.forEach(function(b){
+      var a=bArea[b];
+      list+='<li><button data-b="'+b+'"><span class="t">'+esc(bLabel[b])+(a?'<span class="ar'+(a==='U'?' U':'')+'">'+AREA[a]+'</span>':'')+'</span><span class="c">'+fmt(bc[b])+'</span><span class="chev">'+ICON.chev+'</span></button></li>';
+    });
+    view.insertAdjacentHTML('beforeend','<div class="group"><div class="sh"><h2>Blocks & towns</h2><span class="aside">schools</span></div><ul class="list nav">'+list+'</ul></div>');
+  }
+
+  function viewSchoolList(){
+    var idx=search(st,''); lastResults=idx;
+    var title=st.b>=0?bLabel[st.b]:'All schools';
+    view.insertAdjacentHTML('beforeend',
+      '<div class="crumb"><button class="back" data-nav="district">'+ICON.back+esc(dName[st.d])+'</button></div>'+
+      '<h1 class="place">'+esc(title)+'</h1>'+
+      '<p class="placesub"><span class="num">'+fmt(idx.length)+' schools · '+esc(summary())+'</span>'+clearFiltersBtn()+'</p>');
+    if(!idx.length){view.insertAdjacentHTML('beforeend','<div class="empty"><h2>No schools with these filters</h2><button class="solid" data-act="clear-filters">Clear filters</button></div>');return;}
+    mountList(view,idx,null);
+  }
+
+  function viewResults(withQuery){
+    var q=withQuery?st.q:'', idx=search(st,q), toks=norm(q).split(' ').filter(Boolean);
+    if(st.near)idx=byDist(idx);
+    lastResults=idx;
+    if(!idx.length){
+      var filtered=nFilters(st)>0;
+      view.innerHTML='<div class="empty"><h2>'+(withQuery?'No school matches “'+esc(st.q.trim())+'”':'No schools with these filters')+'</h2><p>'+
+        (filtered?'Filters: '+esc(summary())+'. The school may sit outside them.':'Check the spelling, try fewer words, or use the 11-digit UDISE code.')+'</p>'+
+        (filtered?'<button class="solid" data-act="clear-filters">Clear filters</button>':'')+'</div>';
+      return;
+    }
+    view.insertAdjacentHTML('beforeend','<p class="count"><span><b>'+fmt(idx.length)+'</b> '+(idx.length===1?'school':'schools')+' · '+esc(summary())+(st.near?' · nearest first':'')+'</span>'+clearFiltersBtn()+'</p>');
+    mountList(view,idx,toks);
+  }
+
+  function viewNearby(){
+    var idx=st.coord==='none'?[]:nearest(60); lastResults=idx;
+    if(!idx.length){view.innerHTML='<div class="empty"><h2>No nearby schools with these filters</h2><p>'+esc(summary())+'</p><button class="solid" data-act="clear-filters">Clear filters</button></div>';return;}
+    view.insertAdjacentHTML('beforeend','<p class="count"><span><b>'+idx.length+'</b> nearest schools · '+esc(summary())+'</span><button class="linkbtn" data-act="near-off">Turn off Nearby</button></p>');
+    mountList(view,idx,null);
+  }
+
+  function syncChrome(){
+    var nf=nFilters(st), b=$('fBadge');
+    b.hidden=!nf; b.textContent=nf;
+    $('nearBtn').classList.toggle('on',!!st.near);
+    $('nearBtn').setAttribute('aria-pressed',st.near?'true':'false');
+    $('clear').hidden=!st.q;
+    $('q').placeholder=st.b>=0?'Search in '+bLabel[st.b]:(st.d>=0?'Search in '+dName[st.d]:'School name, UDISE code or block');
+    var t='';
+    if(nf)t+='<span class="divider" aria-hidden="true"></span>';
+    if(st.d>=0)t+=tok('d',dName[st.d]);
+    if(st.b>=0)t+=tok('b',bLabel[st.b]);
+    if(st.area)t+=tok('area',AREA[st.area]);
+    if(st.coord)t+=tok('coord',st.coord==='has'?'Has location':'Missing location');
+    $('tokens').innerHTML=t;
+  }
+  function tok(k,label){return '<button class="chip tok" data-untok="'+k+'" aria-label="Remove filter: '+esc(label)+'">'+esc(label)+'<span class="xx">'+ICON.xs+'</span></button>';}
+
+  // ── recent
+  function recent(){
+    var raw; try{raw=JSON.parse(sget('nipun-recent')||'[]');}catch(e){raw=[];}
+    if(!Array.isArray(raw))return [];
+    return raw.map(byUdise).filter(function(i){return i!==undefined;});
+  }
+  function pushRecent(i){
+    var u=S[i][1], raw; try{raw=JSON.parse(sget('nipun-recent')||'[]');}catch(e){raw=[];}
+    if(!Array.isArray(raw))raw=[];
+    raw=raw.filter(function(x){return x!==u;}); raw.unshift(u);
+    sset('nipun-recent',JSON.stringify(raw.slice(0,RECENT_MAX)));
+  }
+
+  // ── sheet
+  var sheet=$('sheet'), scrim=$('scrim'), shbody=$('shbody'), pushed=false, returnFocus=null, draft=null;
+  function openSheet(html){
+    shbody.innerHTML=html; shbody.scrollTop=0;
+    if(!sheet.classList.contains('open')){
+      returnFocus=document.activeElement;
+      try{history.pushState({sheet:1},'');pushed=true;}catch(e){pushed=false;}
+    }
+    sheet.classList.add('open'); scrim.classList.add('open');
+    var f=shbody.querySelector('[data-focus]'); if(f)setTimeout(function(){f.focus({preventScroll:true});},60);
+  }
+  function closeSheet(fromPop){
+    if(!sheet.classList.contains('open'))return;
+    sheet.classList.remove('open'); scrim.classList.remove('open'); draft=null;
+    if(pushed&&!fromPop){pushed=false;try{history.back();}catch(e){}}else pushed=false;
+    if(returnFocus&&returnFocus.focus&&returnFocus!==$('q'))try{returnFocus.focus({preventScroll:true});}catch(e){}
+  }
+  window.addEventListener('popstate',function(){closeSheet(true);});
+
+  function openSchool(i){
+    var s=S[i], c=hasC(s), a=bArea[s[3]], nm=s[0]||'Unnamed school';
+    pushRecent(i);
+    var h='<div class="shtop"><div class="eyebrow">'+esc(dName[s[2]])+' › '+esc(bLabel[s[3]])+'</div><button class="x" data-close aria-label="Close">'+ICON.x+'</button></div>'+
+      '<h2 class="sname" id="sheetTitle">'+esc(nm)+'</h2>'+
+      '<dl class="facts">'+
+        '<dt>UDISE</dt><dd>'+esc(s[1]||'—')+'</dd>'+
+        (a?'<dt>Area</dt><dd><span class="ar'+(a==='U'?' U':'')+'">'+AREA[a]+'</span></dd>':'')+
+        (c?'<dt>Location</dt><dd class="coordrow"><span>'+s[4].toFixed(6)+'° N, '+s[5].toFixed(6)+'° E</span><button class="copy" data-copy="'+s[4]+','+s[5]+'">'+ICON.copy+'Copy</button></dd>':'')+
+        (st.near&&c?'<dt>Distance</dt><dd>'+fmtKm(km(i))+' from you</dd>':'')+
+      '</dl>';
+    if(c){
+      h+='<a class="primary" data-focus href="'+dirUrl(s)+'" target="_blank" rel="noopener">'+ICON.nav+'Get directions</a>'+
+         '<div class="twin"><a class="secondary" href="'+mapUrl(s)+'" target="_blank" rel="noopener">'+ICON.pin+'Show on map</a>'+
+         '<button class="secondary" data-share="'+i+'">'+ICON.share+'Share</button></div>'+
+         '<p class="fine">The Nipun Plus app draws a 100 m geofence around this point.</p>';
+    }else{
+      h+='<div class="warn">This school has no coordinates on record.</div>'+
+         '<a class="primary" data-focus href="'+nameSearchUrl(s)+'" target="_blank" rel="noopener">'+ICON.search+'Search it on Google Maps</a>';
+    }
+    openSheet(h);
+  }
+
+  // ── filter sheet
+  function openFilters(){
+    var h='<div class="shtop"><h2 class="shh2" id="sheetTitle">Filters</h2><div class="shtools"><button class="textbtn" data-freset>Reset</button><button class="x" data-close aria-label="Close">'+ICON.x+'</button></div></div>'+
+      '<div class="fgroup"><label class="flabel" for="fD">District</label><div class="selwrap"><select id="fD"></select>'+ICON.down+'</div></div>'+
+      '<div class="fgroup"><label class="flabel" for="fB">Block or town</label><div class="selwrap"><select id="fB"></select>'+ICON.down+'</div></div>'+
+      '<div class="fgroup"><span class="flabel" id="lArea">Area</span><div class="seg" role="group" aria-labelledby="lArea" data-seg="area">'+
+        '<button data-v="">All</button><button data-v="R">Rural</button><button data-v="U">Urban</button></div></div>'+
+      '<div class="fgroup"><span class="flabel" id="lCoord">Location on record</span><div class="seg" role="group" aria-labelledby="lCoord" data-seg="coord">'+
+        '<button data-v="">All</button><button data-v="has">Has location</button><button data-v="none">Missing</button></div></div>'+
+      '<button class="primary" id="fApply" data-focus>Show schools</button>';
+    openSheet(h);
+    draft={d:st.d,b:st.b,area:st.area,coord:st.coord};
+    var o='<option value="-1">All districts</option>';
+    dOrder.forEach(function(d){o+='<option value="'+d+'">'+esc(dName[d])+'</option>';});
+    $('fD').innerHTML=o;
+    fillBlockSel(); syncDraft();
+    $('fD').addEventListener('change',function(){draft.d=+this.value; draft.b=-1; fillBlockSel(); syncDraft();});
+    $('fB').addEventListener('change',function(){draft.b=+this.value; syncDraft();});
+  }
+  function fillBlockSel(){
+    var sel=$('fB');
+    if(draft.d<0){sel.innerHTML='<option value="-1">Choose a district first</option>'; sel.disabled=true; return;}
+    sel.disabled=false;
+    var bl=(dblocks[draft.d]||[]).filter(function(b){return !draft.area||bArea[b]===draft.area;}).sort(function(a,b){return bLabel[a].localeCompare(bLabel[b]);});
+    var o='<option value="-1">All blocks & towns</option>';
+    bl.forEach(function(b){o+='<option value="'+b+'">'+esc(bLabel[b])+(bArea[b]?' ('+AREA[bArea[b]]+')':'')+'</option>';});
+    sel.innerHTML=o;
+  }
+  function syncDraft(){
+    if(!draft)return;
+    $('fD').value=String(draft.d);
+    $('fB').value=String(draft.b);
+    shbody.querySelectorAll('[data-seg]').forEach(function(g){
+      var k=g.dataset.seg;
+      g.querySelectorAll('button').forEach(function(bt){bt.setAttribute('aria-pressed',bt.dataset.v===draft[k]?'true':'false');});
+    });
+    var n=countFor(draft,st.q), btn=$('fApply');
+    btn.disabled=!n;
+    btn.textContent=n?'Show '+fmt(n)+(n===1?' school':' schools'):'No schools match';
+  }
+  function applyDraft(){
+    st.d=draft.d; st.b=draft.b; st.area=draft.area; st.coord=draft.coord; st.list=false;
+    saveFilters(); closeSheet(); render(); window.scrollTo(0,0);
+  }
+
+  // ── actions
+  function toast(msg){var t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},2000);}
+  function copy(text,msg){
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){toast(msg);},function(){fallbackCopy(text,msg);});}
+    else fallbackCopy(text,msg);
+  }
+  function fallbackCopy(text,msg){
+    var ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');toast(msg);}catch(e){toast('Copying isn’t allowed here');}
+    document.body.removeChild(ta);
+  }
+  function share(i){
+    var s=S[i], url=mapUrl(s);
+    var text=(s[0]||'School')+'\n'+bLabel[s[3]]+', '+dName[s[2]]+'\nUDISE '+s[1]+'\n'+url;
+    if(navigator.share){navigator.share({title:s[0],text:text}).catch(function(){});}
+    else copy(text,'School details copied — paste to share');
+  }
+  function top(){window.scrollTo(0,0);}
+
+  view.addEventListener('click',function(e){
+    var t=e.target.closest('button'); if(!t)return;
+    if(t.dataset.i!==undefined){openSchool(+t.dataset.i);return;}
+    if(t.dataset.d!==undefined){st.d=+t.dataset.d; st.b=-1; st.list=false; saveFilters(); render(); top(); return;}
+    if(t.dataset.b!==undefined){st.b=+t.dataset.b; saveFilters(); render(); top(); return;}
+    if(t.dataset.nav==='home'){st.d=-1; st.b=-1; st.list=false; saveFilters(); render(); top(); return;}
+    if(t.dataset.nav==='district'){st.b=-1; st.list=false; saveFilters(); render(); top(); return;}
+    var a=t.dataset.act;
+    if(a==='list'){st.list=true; render(); top();}
+    else if(a==='clear-filters'){st.d=-1; st.b=-1; st.area=''; st.coord=''; st.list=false; saveFilters(); render(); toast('Filters cleared');}
+    else if(a==='near-off'){st.near=null; render();}
+    else if(a==='clear-recent'){sset('nipun-recent',null); render(); toast('Recent schools cleared');}
+  });
+
+  shbody.addEventListener('click',function(e){
+    var t=e.target.closest('button,a'); if(!t)return;
+    if(t.hasAttribute('data-close')){closeSheet();return;}
+    if(t.dataset.copy){copy(t.dataset.copy,'Coordinates copied');return;}
+    if(t.dataset.share!==undefined){share(+t.dataset.share);return;}
+    if(t.id==='fApply'){applyDraft();return;}
+    if(t.hasAttribute('data-freset')&&draft){draft={d:-1,b:-1,area:'',coord:''}; fillBlockSel(); syncDraft(); return;}
+    var g=t.parentNode&&t.parentNode.dataset?t.parentNode.dataset.seg:null;
+    if(g&&draft){
+      draft[g]=t.dataset.v;
+      if(g==='area'){ if(draft.b>=0&&draft.area&&bArea[draft.b]!==draft.area)draft.b=-1; if(draft.d>=0)fillBlockSel(); }
+      syncDraft();
+    }
+  });
+  scrim.addEventListener('click',function(){closeSheet();});
+  $('filterBtn').addEventListener('click',openFilters);
+  $('tokens').addEventListener('click',function(e){
+    var t=e.target.closest('[data-untok]'); if(!t)return;
+    var k=t.dataset.untok;
+    if(k==='d'){st.d=-1; st.b=-1; st.list=false;}
+    else if(k==='b'){st.b=-1;}
+    else st[k]='';
+    saveFilters(); render();
+  });
+
+  var qin=$('q'), deb;
+  qin.addEventListener('input',function(){
+    $('clear').hidden=!qin.value;
+    clearTimeout(deb);
+    deb=setTimeout(function(){st.q=qin.value; render(); top();},110);
+  });
+  qin.addEventListener('keydown',function(e){
+    if(e.key!=='Enter')return;
+    clearTimeout(deb); st.q=qin.value; render();
+    var q=norm(st.q);
+    if(lastResults.length===1||(/^\d{11}$/.test(q)&&lastResults.length&&S[lastResults[0]][1]===q))openSchool(lastResults[0]);
+    qin.blur();
+  });
+  $('clear').addEventListener('click',function(){qin.value=''; st.q=''; render(); qin.focus();});
+  $('main').addEventListener('touchmove',function(){if(document.activeElement===qin)qin.blur();},{passive:true});
+
+  $('nearBtn').addEventListener('click',function(){
+    var btn=this;
+    if(st.near){st.near=null; render(); return;}
+    if(!navigator.geolocation){toast('This browser can’t share your location');return;}
+    btn.classList.add('busy'); $('nearLbl').textContent='Locating…';
+    navigator.geolocation.getCurrentPosition(function(p){
+      btn.classList.remove('busy'); $('nearLbl').textContent='Nearby';
+      st.near={lat:p.coords.latitude,lng:p.coords.longitude}; render(); top();
+    },function(err){
+      btn.classList.remove('busy'); $('nearLbl').textContent='Nearby';
+      toast(err.code===1?'Location is blocked — allow it, or search by name':'Couldn’t find your location — try again');
+    },{enableHighAccuracy:true,timeout:12000,maximumAge:60000});
+  });
+
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&sheet.classList.contains('open')){closeSheet();return;}
+    if(e.key==='/'&&document.activeElement!==qin&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault(); qin.focus();}
+  });
+
+  // ── theme
+  function curTheme(){var t=document.documentElement.getAttribute('data-theme');return t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');}
+  function paintThemeIcon(){$('themeBtn').innerHTML=curTheme()==='dark'?ICON.sun:ICON.moon;}
+  $('themeBtn').addEventListener('click',function(){var t=curTheme()==='dark'?'light':'dark'; document.documentElement.setAttribute('data-theme',t); sset('nipun-theme',t); paintThemeIcon();});
+  var th=sget('nipun-theme'); if(th==='dark'||th==='light')document.documentElement.setAttribute('data-theme',th);
+  paintThemeIcon();
+
+  render();
+})();
+</script>
