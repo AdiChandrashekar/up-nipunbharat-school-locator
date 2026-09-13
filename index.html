@@ -6,6 +6,20 @@
 <meta name="description" content="Find any of 1,32,576 Uttar Pradesh government schools by name, UDISE code, block or district, and get Google Maps directions.">
 <meta name="theme-color" content="#F4F7FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#00162F" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="canonical" href="https://adichandrashekar.github.io/up-nipunbharat-school-locator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UP School Locator">
+<meta property="og:title" content="UP Nipun Bharat School Locator">
+<meta property="og:description" content="Find any of 1,32,576 Uttar Pradesh government schools and open it in Google Maps.">
+<meta property="og:url" content="https://adichandrashekar.github.io/up-nipunbharat-school-locator/">
+<meta property="og:image" content="https://adichandrashekar.github.io/up-nipunbharat-school-locator/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="School Locator — search UP government schools and open them in Google Maps">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 <title>Uttar Pradesh Nipun Bharat School Locator</title>
@@ -135,7 +149,7 @@
   .divider{flex:0 0 1px; align-self:center; height:22px; background:var(--field-line)}
 
   main{padding-block:10px 28px; min-width:0}
-  .lede{margin:8px 2px 18px; color:var(--slate); font-size:16px; max-width:52ch}
+  .lede{margin:8px 2px 18px; color:var(--slate); font-size:16px}
   .lede b{color:var(--ink); font-weight:600}
   .sh{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0 2px 8px}
   .sh h2{margin:0; font-size:12.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--slate)}
@@ -183,7 +197,7 @@
 
   .empty{background:var(--panel); border:1px solid var(--glass-edge); border-radius:12px; padding:30px 20px; text-align:center; color:var(--slate)}
   .empty h2{font-family:var(--serif); font-size:20px; font-weight:600; color:var(--title); margin:0 0 8px; text-wrap:balance}
-  .empty p{margin:0 auto 16px; max-width:40ch}
+  .empty p{margin:0 0 16px}
   .solid{display:inline-flex; align-items:center; height:48px; padding:0 20px; border-radius:10px; background:var(--action); color:var(--action-ink); font-weight:600}
   .loading{padding:40px 4px; color:var(--slate); display:flex; align-items:center; gap:12px}
   .spin{width:18px; height:18px; border-radius:50%; border:2px solid var(--rule); border-top-color:var(--blue); animation:sp 1s linear infinite}
@@ -192,7 +206,7 @@
   .morebtn{display:block; margin:12px auto 0; height:48px; padding:0 22px; border-radius:10px; background:var(--tint); color:var(--link); font-weight:600}
 
   .foot{padding-block:8px 40px; color:var(--flat); font-size:13.5px; display:flex; flex-direction:column; gap:8px}
-  .foot p{margin:0; max-width:62ch}
+  .foot p{margin:0}
   .foot .credit{font-size:14.5px; color:var(--slate)}
   .foot .credit a{color:var(--link); font-weight:600; text-decoration:none; border-bottom:1.5px solid var(--gold)}
 
@@ -356,10 +370,10 @@
   <aside class="side">
     <div class="dock">
       <div class="dockbar glass">
-        <label class="sr" for="q">Search schools by name, UDISE code or block</label>
+        <label class="sr" for="q">Search schools by name, UDISE code, block or district</label>
         <div class="field">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.2-4.2"/></svg>
-          <input id="q" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="School name, UDISE code or block">
+          <input id="q" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="School, UDISE, block or district">
           <button class="clear" id="clear" aria-label="Clear search" hidden>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
           </button>
@@ -439,9 +453,10 @@
   var bArea=blocks.map(function(r){return /\(U\)\s*$/.test(r)?'U':(/\(R\)\s*$/.test(r)?'R':'');});
   var bLabel=blocks.map(function(r){return r.replace(/\s*\((R|U)\)\s*$/,'');});
   var AREA={R:'Rural',U:'Urban'};
-  var nameN=new Array(N), hay=new Array(N);
+  var nameN=new Array(N), hay=new Array(N), dTotal=new Array(districts.length).fill(0);
   for(var i=0;i<N;i++){
     var s=S[i], n=norm(s[0]);
+    dTotal[s[2]]++;
     nameN[i]=n; hay[i]=n+' | '+bN[s[3]]+' | '+dN[s[2]]+' | '+s[1];
   }
   var dOrder=districts.map(function(_,i){return i;}).sort(function(a,b){return dName[a].localeCompare(dName[b]);});
@@ -633,10 +648,28 @@
     mountList(view,idx,null);
   }
 
+  // Districts whose name matches the query ("luck", "gautam budh", "kanpurnagar")
+  function matchDistricts(q){
+    var qn=norm(q); if(qn.length<2||/^\d+$/.test(qn))return [];
+    var qc=qn.replace(/ /g,'');
+    return dOrder.filter(function(d){
+      return (' '+dN[d]).indexOf(' '+qn)!==-1||dN[d].replace(/ /g,'').indexOf(qc)===0;
+    }).slice(0,4);
+  }
+
   function viewResults(withQuery){
     var q=withQuery?st.q:'', idx=search(st,q), toks=norm(q).split(' ').filter(Boolean);
     if(st.near)idx=byDist(idx);
     lastResults=idx;
+    var dm=(withQuery&&st.d<0)?matchDistricts(q):[];
+    if(dm.length){
+      var dl='';
+      dm.forEach(function(d){
+        dl+='<li><button data-dq="'+d+'"><span class="t">'+hl(dName[d],toks)+'</span><span class="c">'+fmt(dTotal[d])+' schools</span><span class="chev">'+ICON.chev+'</span></button></li>';
+      });
+      view.insertAdjacentHTML('beforeend','<div class="group"><div class="sh"><h2>'+(dm.length===1?'District':'Districts')+'</h2><span class="aside">tap to open</span></div><ul class="list nav">'+dl+'</ul></div>');
+    }
+    if(!idx.length&&dm.length)return;
     if(!idx.length){
       var filtered=nFilters(st)>0;
       view.innerHTML='<div class="empty"><h2>'+(withQuery?'No school matches “'+esc(st.q.trim())+'”':'No schools with these filters')+'</h2><p>'+
@@ -661,7 +694,7 @@
     $('nearBtn').classList.toggle('on',!!st.near);
     $('nearBtn').setAttribute('aria-pressed',st.near?'true':'false');
     $('clear').hidden=!st.q;
-    $('q').placeholder=st.b>=0?'Search in '+bLabel[st.b]:(st.d>=0?'Search in '+dName[st.d]:'School name, UDISE code or block');
+    $('q').placeholder=st.b>=0?'Search in '+bLabel[st.b]:(st.d>=0?'Search in '+dName[st.d]:'School, UDISE, block or district');
     var t='';
     if(nf)t+='<span class="divider" aria-hidden="true"></span>';
     if(st.d>=0)t+=tok('d',dName[st.d]);
@@ -832,6 +865,7 @@
     var t=e.target.closest('button'); if(!t)return;
     if(t.dataset.i!==undefined){openSchool(+t.dataset.i);return;}
     if(t.dataset.d!==undefined){st.d=+t.dataset.d; st.b=-1; st.list=false; saveFilters(); render(); top(); return;}
+    if(t.dataset.dq!==undefined){st.d=+t.dataset.dq; st.b=-1; st.list=false; st.q=''; qin.value=''; saveFilters(); render(); top(); return;}
     if(t.dataset.b!==undefined){st.b=+t.dataset.b; saveFilters(); render(); top(); return;}
     if(t.dataset.nav==='home'){st.d=-1; st.b=-1; st.list=false; saveFilters(); render(); top(); return;}
     if(t.dataset.nav==='district'){st.b=-1; st.list=false; saveFilters(); render(); top(); return;}
